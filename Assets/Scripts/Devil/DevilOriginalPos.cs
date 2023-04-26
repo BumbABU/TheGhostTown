@@ -6,8 +6,8 @@ public class DevilOriginalPos : MonoBehaviour
 {
     private DevilFollow devilFollow;
     [SerializeField]
-    private Vector3 originalPos;
-    public Vector3 OriginalPos { get { return originalPos; } }
+    private Vector2 originalPos;
+    public Vector2 OriginalPos { get { return originalPos; } }
     [SerializeField]
     private float speed;
 
@@ -24,6 +24,6 @@ public class DevilOriginalPos : MonoBehaviour
     }
     private void Comeback()
     {
-        transform.position = Vector3.MoveTowards(transform.position, originalPos, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, originalPos, speed * Time.deltaTime);
     }
 }
