@@ -30,5 +30,13 @@ public class FireBreathing : MonoBehaviour
        Tuy nhiên, nhược điểm của hàm này là đối tượng sẽ di chuyển theo đường thẳng trực tiếp đến vị trí cowboy, mà không hề đoán trước được hướng di chuyển của cowboy.
        Nếu cowboy di chuyển nhanh hoặc thay đổi hướng di chuyển đột ngột, đối tượng sẽ khó có thể đuổi kịp. 
        Trong khi đó, ưu điểm của hàm FireFollow1() là tính toán vị trí mục tiêu theo hướng của cowboy, 
-       nhưng tính toán trước một khoảng cách nhất định, giúp đối tượng có thể đoán trước được hướng di chuyển của cowboy và di chuyển theo hướng đó. */   
+       nhưng tính toán trước một khoảng cách nhất định, giúp đối tượng có thể đoán trước được hướng di chuyển của cowboy và di chuyển theo hướng đó. */
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Terrain"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
