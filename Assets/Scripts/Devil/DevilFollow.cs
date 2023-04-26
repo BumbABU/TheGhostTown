@@ -27,7 +27,6 @@ public class DevilFollow : MonoBehaviour
        // distance = this.cowBoy.position - transform.position;
         if (distance.DisTance.magnitude < distanceTofollow  || isFollowing )
         {
-            Debug.Log("Hello");
             FollowCowboy();
             isFollowing = true;
         }

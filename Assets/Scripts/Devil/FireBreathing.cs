@@ -5,23 +5,36 @@ using UnityEngine;
 public class FireBreathing : MonoBehaviour
 {
     [SerializeField]
+    private CowboyAnimation cowboyAnimation;
+    [SerializeField]
+    private CowboyStatus cowboyst;
+    [SerializeField]
     private Transform cowboy;
     [SerializeField]
     private float followSpeed = 5f;
     private Vector3 distance;
-    private bool parents = false;
     [SerializeField]
     private Rigidbody2D rb;
+    [SerializeField]
+    private float fireDamage;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
-        Invoke("Destroy", 10f);
-        if (parents) return;
+       /* if(!stickCowboy)
+        {
+            Invoke("Destroy", 10f);
+        }*/
         distance = cowboy.position - transform.position;
          FireFollow1();
+      /*  if(stickCowboy)
+        {
+            cowboyst.cowboyTakedamage(fireDamage);
+            StartCoroutine(hello());
+        }*/
+        
     }
 
 
@@ -45,8 +58,15 @@ public class FireBreathing : MonoBehaviour
         }
         else if (collision.CompareTag("Cowboy"))
         {
+            if (cowboyst.IsDashingCut) return;
+            if(cowboyst.IsDeath)
+            {
+                Destroy();
+            }
             transform.SetParent(collision.transform);
             rb.bodyType = RigidbodyType2D.Kinematic;
+            cowboyst.cowboyTakedamage(fireDamage);
+            StartCoroutine(hello());
 
         }
     }
@@ -54,5 +74,14 @@ public class FireBreathing : MonoBehaviour
     private void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    private IEnumerator hello ()
+    {
+        yield return new WaitForSeconds(1);
+        cowboyst.IsTakeDamage = false;
+        cowboyAnimation.Animator.Rebind();
+        yield return new WaitForSeconds(0.0000001f);
+        Destroy();
     }
 }

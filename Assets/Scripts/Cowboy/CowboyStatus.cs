@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class CowboyStatus : MonoBehaviour
@@ -90,7 +91,8 @@ public class CowboyStatus : MonoBehaviour
 
     private void Update()
     {
-       // Debug.Log(cowBoyHealth);
+        // Debug.Log(cowBoyHealth);
+        Debug.Log("cowboyTakeDamge" + isTakeDamage);
         if (isTakeDamage)
         {
             cowboy_speed = 0;
@@ -222,6 +224,10 @@ public class CowboyStatus : MonoBehaviour
         {
             isTakeDamage = false;
         }
+        /*else if (collision.CompareTag("FireBreath"))
+        {
+            isTakeDamage = false;
+        }*/
     }
 
     private void cowboyDeath()

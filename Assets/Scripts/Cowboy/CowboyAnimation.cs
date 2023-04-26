@@ -5,6 +5,8 @@ using UnityEngine;
 public class CowboyAnimation : MonoBehaviour
 {
     [SerializeField]
+    private FireBreathing fireBreathing;
+    [SerializeField]
     private EnemyManager enemyManager;
     private CowboyStatus cowboyStatus;
     [SerializeField]
@@ -44,7 +46,13 @@ public class CowboyAnimation : MonoBehaviour
         if (cowboyStatus.IsTakeDamage)
         {
             animator.Play("cowboy_Hurt");
+          
         }
+      /*  if(!fireBreathing.IsstickCowboy)
+        {
+            Debug.Log("animationPlay");
+            animator.Rebind();
+        }*/
     }
     private void FixedUpdate()
     {

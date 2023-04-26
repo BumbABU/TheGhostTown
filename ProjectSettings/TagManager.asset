@@ -9,6 +9,7 @@ TagManager:
   - Cowboy
   - mummy
   - Terrain
+  - FireBreath
   layers:
   - Default
   - TransparentFX

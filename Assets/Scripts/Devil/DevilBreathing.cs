@@ -21,7 +21,6 @@ public class DevilBreathing : MonoBehaviour
     {
         // DelayBreath();
 
-        Debug.Log(listfirePrefab.Count);
         if(listfirePrefab.Count >= 3)
         {
             Invoke("RemoveListFire", 3f);

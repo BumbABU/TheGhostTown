@@ -19,7 +19,6 @@ public class DevilFlip : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Hello");
         if(!devilFollow.IsFollowing)
         {
             FlipOriginalPos();
@@ -43,7 +42,6 @@ public class DevilFlip : MonoBehaviour
 
     private void FLiptoCowboy()
     {
-        Debug.Log("Flip");
         if (cowboy == null) return;
         if(cowboy.transform.position.x > transform.position.x)
         {

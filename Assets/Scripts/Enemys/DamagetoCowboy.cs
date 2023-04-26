@@ -27,7 +27,6 @@ public class DamagetoCowboy : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(rb.gravityScale);
         if(isDamagetoCowboy && enemyManager.Isattacking)
         {
             DamageToCowboy();
