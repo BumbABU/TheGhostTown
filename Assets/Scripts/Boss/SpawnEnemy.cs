@@ -14,6 +14,8 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField]
     private float delayTimeSpawn;
     private bool CanSpawn = false;
+    private int currentEnemy;
+    private int maxEnemy;
 
     private void Update()
     {
