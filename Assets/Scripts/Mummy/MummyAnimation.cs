@@ -25,15 +25,15 @@ public class MummyAnimation : MonoBehaviour
             animator.Play("mummy_Death");
             return;
         }
-        if(mummyAttack.IsAttack)
+        if(mummyAttack.IsAttack && !mummyTakeDamage.IsTakeDamage)
         {
             animator.Play("mummy_Attack");
-            return;
+           // return;
         }
-        if(mummyAttack.IsAttack)
+       /* if(mummyAttack.IsAttack)
         {
             return;
-        }
+        }*/
         if(mummyTakeDamage.IsTakeDamage)
         {
             animator.Play("mummy_Hurt");
@@ -43,7 +43,7 @@ public class MummyAnimation : MonoBehaviour
 
             animator.Play("mummy_Walk");
         }
-       else if (mummyFollow.IsFollowing&&!mummyTakeDamage.IsTakeDamage)
+       else if (mummyFollow.IsFollowing&&!mummyTakeDamage.IsTakeDamage && !mummyAttack.IsAttack)
         {
             animator.Play("mummy_Run");
         }

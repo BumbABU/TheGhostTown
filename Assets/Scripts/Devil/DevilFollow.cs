@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DevilFollow : MonoBehaviour
 {
+    private DevilBreathing devilBreathing;
     private Distance distance;
     [SerializeField]
     private Transform cowBoy;
@@ -19,18 +20,19 @@ public class DevilFollow : MonoBehaviour
     private void Awake()
     {
         distance = GetComponent<Distance>();
+        devilBreathing = GetComponent<DevilBreathing>();
     }
     private void Update()
     {
        
 
        // distance = this.cowBoy.position - transform.position;
-        if (distance.DisTance.magnitude < distanceTofollow  || isFollowing )
+        if (distance.DisTance.magnitude < distanceTofollow &&!devilBreathing.IsBreath /* || isFollowing && !devilBreathing.IsBreath*/)
         {
             FollowCowboy();
             isFollowing = true;
         }
-        if (distance.DisTance.magnitude > distanceTofollow)
+        else if (distance.DisTance.magnitude > distanceTofollow)
         {
             isFollowing = false;
         }
@@ -38,7 +40,7 @@ public class DevilFollow : MonoBehaviour
     public void FollowCowboy()
     {
         //enemyManager.Followcowboy = true;
-        Vector3 targetpoint = this.cowBoy.position - distance.DisTance.normalized; // ở đây distance là 1 điểm mới khi ta distance.normalize nó sẽ trả về 1 điểm để khi ta tính độ lớn độ này giá trị trả ra luôn bằng 1 
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetpoint, followSpeed * Time.deltaTime);// speed là khoảng cách tối đa di chuyển trong 1 khùng hình, nếu speed càng lớn thì tốc độ càng nhanh 
+        Vector2 targetpoint = (Vector2)this.cowBoy.position - distance.DisTance.normalized; // ở đây distance là 1 điểm mới khi ta distance.normalize nó sẽ trả về 1 điểm để khi ta tính độ lớn độ này giá trị trả ra luôn bằng 1 
+        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, targetpoint, followSpeed * Time.deltaTime);// speed là khoảng cách tối đa di chuyển trong 1 khùng hình, nếu speed càng lớn thì tốc độ càng nhanh 
     }
 }

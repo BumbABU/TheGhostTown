@@ -162,5 +162,9 @@ public class CowboyAnimation : MonoBehaviour
         {
             animator.Rebind();
         }
+        else if (collision.CompareTag("Devil"))
+        {
+            animator.Rebind();
+        }
     }
 }

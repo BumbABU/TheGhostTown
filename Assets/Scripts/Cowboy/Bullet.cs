@@ -53,9 +53,17 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if(collision.CompareTag("Devil"))
+        {
+            DevilTakeDamage devil = collision.GetComponent<DevilTakeDamage>();
+            if(devil != null)
+            {
+                devil.TakeDamage(damageBullet);
+                Destroy(gameObject);
+            }
+        }
         else if (collision.gameObject.CompareTag("Terrain"))
         {
-            Debug.Log("3333333333333333333333333333333");
             Destroy(gameObject);
         }
 

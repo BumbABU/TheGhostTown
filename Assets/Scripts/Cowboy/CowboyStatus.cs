@@ -91,8 +91,8 @@ public class CowboyStatus : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log(cowBoyHealth);
-        Debug.Log("cowboyTakeDamge" + isTakeDamage);
+         Debug.Log(cowBoyHealth);
+       // Debug.Log("cowboyTakeDamge" + isTakeDamage);
         if (isTakeDamage)
         {
             cowboy_speed = 0;
@@ -212,6 +212,15 @@ public class CowboyStatus : MonoBehaviour
                 mummy.TakeDamage(damageCut);
             } 
         }
+        else if (collision.CompareTag("Devil"))
+        {
+            DevilTakeDamage devil = collision.GetComponent<DevilTakeDamage>();
+            if (devil != null && isDashingCut)
+            {
+                boxCollider.isTrigger = true;
+                devil.TakeDamage(damageCut);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -224,10 +233,10 @@ public class CowboyStatus : MonoBehaviour
         {
             isTakeDamage = false;
         }
-        /*else if (collision.CompareTag("FireBreath"))
+        else if (collision.CompareTag("Devil"))
         {
             isTakeDamage = false;
-        }*/
+        }
     }
 
     private void cowboyDeath()
