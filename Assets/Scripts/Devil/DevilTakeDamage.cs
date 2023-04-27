@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class DevilTakeDamage : MonoBehaviour
 {
+    private HealthEnemy health;
     [SerializeField]
     private CowboyStatus cowboyStatus;
-    [SerializeField]
-    private float devilHealth = 100;
     private Distance devilDistance;
     [SerializeField]
     private Rigidbody2D rb;
@@ -25,6 +24,7 @@ public class DevilTakeDamage : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         devilDistance = GetComponent<Distance>();
         collider = GetComponent<Collider2D>();
+        health = GetComponent<HealthEnemy>();
     }
 
     private void FixedUpdate()
@@ -37,7 +37,7 @@ public class DevilTakeDamage : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(devilHealth);
+        Debug.Log(health.Health);
     }
     public void TakeDamage(float Dame)
     {
@@ -52,13 +52,14 @@ public class DevilTakeDamage : MonoBehaviour
         }
         rb.AddForce(devilDistance.DisTance.normalized * foreceEffect, ForceMode2D.Impulse);*/
         isTakeDamage = true;
-        devilHealth -= Dame;
-        if (devilHealth <= 0)
+        health.Health -= Dame;
+        if (health.Health <= 0)
         {
             isDeath = true;
-            rb.gravityScale = 20f;
+            rb.gravityScale = 200f;
             collider.isTrigger = false;
-            Invoke("Destroy", 3f);
+
+            Invoke("Destroy", 2f);
         }
         
     }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class MumyTakeDamage : MonoBehaviour
 {
+    private HealthEnemy health;
     [SerializeField]
     private CowboyStatus cowboyStatus;
-    [SerializeField]
-    private float mummyHealth = 100;
+  /*  [SerializeField]
+    private float mummyHealth = 100;*/
     private MummyFollow mummyFollow;
     [SerializeField]
     private Rigidbody2D rb;
@@ -24,6 +25,7 @@ public class MumyTakeDamage : MonoBehaviour
         //enemyManager = GetComponent<EnemyManager>();
         rb = GetComponent<Rigidbody2D>();
         mummyFollow = GetComponent<MummyFollow>();
+        health = GetComponent<HealthEnemy>();
     }
 
     private void FixedUpdate()
@@ -46,8 +48,8 @@ public class MumyTakeDamage : MonoBehaviour
         rb.AddForce(mummyFollow.Distance.normalized * foreceEffect, ForceMode2D.Impulse);
         isTakeDamage = true;
         mummyFollow.IsFollowing = true;
-        mummyHealth -= Dame;
-        if (mummyHealth <= 0)
+        health.Health -= Dame;
+        if (health.Health <= 0)
         {
             isDeath = true;
             Invoke("Destroy", 3f);

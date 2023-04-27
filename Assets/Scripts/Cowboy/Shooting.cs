@@ -23,7 +23,7 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private float timePerOneshot;
     private bool canFire = true;
-    private bool isReloading;
+    private bool isReloading = false;
     private bool isShooting;
     public bool IsShooting { get { return isShooting; } }
     
@@ -49,8 +49,7 @@ public class Shooting : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && canFire && cowboyStatus.changeGun && !isReloading)
         {
-            Shoot();
-            
+            Shoot(); 
         }
 
         DelayShoot();

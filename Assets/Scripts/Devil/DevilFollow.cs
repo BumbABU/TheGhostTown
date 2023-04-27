@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DevilFollow : MonoBehaviour
 {
+    private DevilTakeDamage devilTakeDamage;
     private DevilBreathing devilBreathing;
     private Distance distance;
     [SerializeField]
@@ -21,11 +22,15 @@ public class DevilFollow : MonoBehaviour
     {
         distance = GetComponent<Distance>();
         devilBreathing = GetComponent<DevilBreathing>();
+        devilTakeDamage = GetComponent<DevilTakeDamage>();
     }
     private void Update()
     {
        
-
+        if(devilTakeDamage.IsDeath)
+        {
+            return;
+        }
        // distance = this.cowBoy.position - transform.position;
         if (distance.DisTance.magnitude < distanceTofollow &&!devilBreathing.IsBreath /* || isFollowing && !devilBreathing.IsBreath*/)
         {

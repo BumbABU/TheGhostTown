@@ -22,9 +22,6 @@ public class EnemyManager: MonoBehaviour
     private float skillDamage = 0.05f;
     public float SkillDamage { get { return skillDamage; } }
     [SerializeField]
-    private float enemyHealth = 100;
-    public float EnemyHealth { get {  return enemyHealth; }  set { enemyHealth = value; } }
-    [SerializeField]
     private Transform cowBoy;
     [SerializeField]
     private float speed = 5;
@@ -79,6 +76,10 @@ public class EnemyManager: MonoBehaviour
             isattacking = false;
             isUntilSkill = false;
             isfollowCowboy = false;
+            return;
+        }
+        if(TakeDamge.IsDeath)
+        {
             return;
         }
         distanceY = cowBoy.position.y - transform.position.y;

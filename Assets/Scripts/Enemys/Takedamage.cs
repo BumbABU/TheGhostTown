@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Takedamage : MonoBehaviour
 {
+    private HealthEnemy health;
     [SerializeField]
     private CowboyStatus cowboyStatus;
     [SerializeField]
@@ -17,6 +18,7 @@ public class Takedamage : MonoBehaviour
     {
        enemyManager = GetComponent<EnemyManager>();
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponent<HealthEnemy>();
     }
 
     private void FixedUpdate()
@@ -39,10 +41,11 @@ public class Takedamage : MonoBehaviour
         rb.AddForce(enemyManager.Distance.normalized * foreceEffect, ForceMode2D.Impulse);
         enemyManager.IsTakedamage = true;
         enemyManager.IsfollowCowboy = true;
-        enemyManager.EnemyHealth -= Dame;
-        if (enemyManager.EnemyHealth <= 0)
+        health.Health -= Dame;
+        if (health.Health <= 0)
         {
             isDeath = true;
+            rb.gravityScale = 200;
             Invoke("Destroy", 3f);
         }
     }
