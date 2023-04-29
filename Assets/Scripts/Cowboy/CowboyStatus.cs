@@ -91,7 +91,7 @@ public class CowboyStatus : MonoBehaviour
 
     private void Update()
     {
-         Debug.Log(cowBoyHealth);
+       //  Debug.Log(cowBoyHealth);
        // Debug.Log("cowboyTakeDamge" + isTakeDamage);
         if (isTakeDamage)
         {

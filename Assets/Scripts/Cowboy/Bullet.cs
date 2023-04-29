@@ -5,24 +5,19 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    float bulletRate;
-
-    [SerializeField]
-    private int damageBullet;
-    [SerializeField]
-    private float distanceBullet;
+    private Shooting shooting;
     public Transform shootingPoint;
     private Rigidbody2D rb;
     public bool IsRight;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity =(IsRight? transform.right : -transform.right) * bulletRate;
-
+        rb.velocity = (IsRight ? transform.right : -transform.right) * shooting.BulletRate;
+       //hooting = GetComponent<Shooting>();
     }
     private void Update()
     {
-        if (Vector2.Distance(shootingPoint.position, transform.position) > distanceBullet)
+        if (Vector2.Distance(shootingPoint.position, transform.position) > shooting.DistanceBullet)
         {
             Destroy(gameObject);
         }
@@ -39,7 +34,7 @@ public class Bullet : MonoBehaviour
 
             if (enemy != null && !enemy1.IsUntilSkill)
             {
-                enemy.TakeDamage(damageBullet);
+                enemy.TakeDamage(shooting.DamageBullet);
                 Destroy(gameObject);
 
             }
@@ -49,7 +44,7 @@ public class Bullet : MonoBehaviour
             MumyTakeDamage mummy = collision.GetComponent<MumyTakeDamage>();
             if(mummy != null)
             {
-                mummy.TakeDamage(damageBullet);
+                mummy.TakeDamage(shooting.DamageBullet);
                 Destroy(gameObject);
             }
         }
@@ -58,7 +53,7 @@ public class Bullet : MonoBehaviour
             DevilTakeDamage devil = collision.GetComponent<DevilTakeDamage>();
             if(devil != null)
             {
-                devil.TakeDamage(damageBullet);
+                devil.TakeDamage(shooting.DamageBullet);
                 Destroy(gameObject);
             }
         }

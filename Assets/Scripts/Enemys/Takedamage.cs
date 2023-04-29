@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Takedamage : MonoBehaviour
 {
+    [SerializeField] 
     private HealthEnemy health;
     [SerializeField]
     private CowboyStatus cowboyStatus;
@@ -18,7 +19,7 @@ public class Takedamage : MonoBehaviour
     {
        enemyManager = GetComponent<EnemyManager>();
         rb = GetComponent<Rigidbody2D>();
-        health = GetComponent<HealthEnemy>();
+      //  health = GetComponent<HealthEnemy>();
     }
 
     private void FixedUpdate()
@@ -42,11 +43,12 @@ public class Takedamage : MonoBehaviour
         enemyManager.IsTakedamage = true;
         enemyManager.IsfollowCowboy = true;
         health.Health -= Dame;
+       // HealthEnemy.health -= Dame;
         if (health.Health <= 0)
         {
             isDeath = true;
             rb.gravityScale = 200;
-            Invoke("Destroy", 3f);
+            Invoke("Destroy", 1f);
         }
     }
 

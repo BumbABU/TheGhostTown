@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
+    [SerializeField]
+    private float bulletRate;
+    public float BulletRate { get{return bulletRate;}}
+    [SerializeField]
+    private int damageBullet;
+    public int DamageBullet { get { return damageBullet;}}
+    [SerializeField]
+    private float distanceBullet;
+    public float DistanceBullet { get { return distanceBullet;}}
     private CowboyStatus cowboyStatus;
     [SerializeField]
     private Animator animator;

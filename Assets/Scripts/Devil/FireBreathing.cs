@@ -17,16 +17,17 @@ public class FireBreathing : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField]
     private float fireDamage;
+    private bool stick;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
     {
-       /* if(!stickCowboy)
+        if (!stick)
         {
-            Invoke("Destroy", 10f);
-        }*/
+            Invoke("Destroy", 5f);
+        }
         distance = cowboy.position - transform.position;
          FireFollow1();
       /*  if(stickCowboy)
@@ -54,6 +55,7 @@ public class FireBreathing : MonoBehaviour
     {
         if(collision.CompareTag("Terrain"))
         {
+           stick = true;
             Destroy(gameObject);
         }
         else if (collision.CompareTag("Cowboy"))
@@ -63,6 +65,7 @@ public class FireBreathing : MonoBehaviour
             {
                 Destroy();
             }
+            stick = true;
             transform.SetParent(collision.transform);
             rb.bodyType = RigidbodyType2D.Kinematic;
             cowboyst.cowboyTakedamage(fireDamage);

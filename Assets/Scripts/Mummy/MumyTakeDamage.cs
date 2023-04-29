@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MumyTakeDamage : MonoBehaviour
 {
+    [SerializeField]
     private HealthEnemy health;
     [SerializeField]
     private CowboyStatus cowboyStatus;
@@ -25,7 +26,7 @@ public class MumyTakeDamage : MonoBehaviour
         //enemyManager = GetComponent<EnemyManager>();
         rb = GetComponent<Rigidbody2D>();
         mummyFollow = GetComponent<MummyFollow>();
-        health = GetComponent<HealthEnemy>();
+       // health = GetComponent<HealthEnemy>();
     }
 
     private void FixedUpdate()
@@ -49,10 +50,11 @@ public class MumyTakeDamage : MonoBehaviour
         isTakeDamage = true;
         mummyFollow.IsFollowing = true;
         health.Health -= Dame;
+       // HealthEnemy.health -= Dame;
         if (health.Health <= 0)
         {
             isDeath = true;
-            Invoke("Destroy", 3f);
+            Invoke("Destroy", 0.5f);
         }
     }
 
