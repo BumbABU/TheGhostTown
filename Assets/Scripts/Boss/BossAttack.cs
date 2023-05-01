@@ -2,30 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MummyAttack : MonoBehaviour
+public class BossAttack : MonoBehaviour
 {
-    private MumyTakeDamage mummyTakeDamage;
+    private BossFollow bossFollow;
+    private BossTakeDamage bossTakeDamage;
     [SerializeField]
     private CowboyStatus cowboyStatus;
     private bool isAttack = false;
     public bool IsAttack { get { return isAttack; } }
     private float timertakeDamage = 0;
     [SerializeField]
-    private float delayTakedamage = 0.005f;
+    private float delayTakedamage = 2;
     [SerializeField]
-    private float mummyDamage = 5f;
+    private float bossDamage = 5f;
     [SerializeField]
-    private Collider2D collider;
+    private Collider2D collider1;
+    [SerializeField]
+    private Collider2D collider2;
+
     [SerializeField]
     private Rigidbody2D rb;
     private float originalRb;
-
     private void Awake()
     {
-        mummyTakeDamage = GetComponent<MumyTakeDamage>();
-        collider = GetComponent<Collider2D>();
+        bossTakeDamage = GetComponent<BossTakeDamage>();
+        bossFollow = GetComponent<BossFollow>();
+        collider1 = GetComponent<Collider2D>();
+        collider2 = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
-        originalRb = rb.gravityScale;
+        originalRb = this.rb.gravityScale;
     }
 
     private void Update()
@@ -37,24 +42,33 @@ public class MummyAttack : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       
+
 
         if (collision.CompareTag("Cowboy"))
         {
-            if (!cowboyStatus.IsDashingCut && !mummyTakeDamage.IsDeath)
+            if ( bossFollow.IsFollowing && !cowboyStatus.IsDashingCut && !bossTakeDamage.IsDeath)
             {
                 isAttack = true;
             }
         }
+        if (collision.CompareTag("mummy"))
+        {
+            collider1.isTrigger = true;
+            collider2.isTrigger = true;
+            rb.gravityScale = 0;
+            
+        }
         if (collision.CompareTag("Devil"))
         {
-            collider.isTrigger = true;
+            collider1.isTrigger = true;
+            collider2.isTrigger = true;
             rb.gravityScale = 0;
 
         }
         if (collision.CompareTag("Enemy"))
         {
-            collider.isTrigger = true;
+            collider1.isTrigger = true;
+            collider2.isTrigger = true;
             rb.gravityScale = 0;
 
         }
@@ -66,15 +80,24 @@ public class MummyAttack : MonoBehaviour
         {
             isAttack = false;
         }
+        if (collision.CompareTag("mummy"))
+        {
+            collider1.isTrigger = false;
+            collider2.isTrigger = false;
+            rb.gravityScale = originalRb;
+
+        }
         if (collision.CompareTag("Devil"))
         {
-            collider.isTrigger = false;
+            collider1.isTrigger = false;
+            collider2.isTrigger = false;
             rb.gravityScale = originalRb;
 
         }
         if (collision.CompareTag("Enemy"))
         {
-            collider.isTrigger = false;
+            collider1.isTrigger = false;
+            collider2.isTrigger = false;
             rb.gravityScale = originalRb;
 
         }
@@ -85,7 +108,7 @@ public class MummyAttack : MonoBehaviour
         timertakeDamage += Time.deltaTime;
         if (timertakeDamage < delayTakedamage) return;
         timertakeDamage = 0;
-        cowboyStatus.cowboyTakedamage(mummyDamage);
+        cowboyStatus.cowboyTakedamage(bossDamage);
 
     }
 }

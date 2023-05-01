@@ -5,6 +5,8 @@ using UnityEngine;
 public class Spawnpoint : MonoBehaviour
 {
     [SerializeField]
+    private BossTakeDamage boss;
+    [SerializeField]
     private SpawnEnemy spawnEnemy;
     [SerializeField]
     private Animator animator;
@@ -15,9 +17,11 @@ public class Spawnpoint : MonoBehaviour
     }
     private void Update()
     {
+        if (boss.IsDeath) return;
+
       if(spawnEnemy.IsSpawn)
         {
-            animator.Play("spell1");
+            animator.Play("Spell");
         }  
       else
         {

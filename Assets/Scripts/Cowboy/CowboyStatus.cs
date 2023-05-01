@@ -237,6 +237,10 @@ public class CowboyStatus : MonoBehaviour
         {
             isTakeDamage = false;
         }
+        else if (collision.CompareTag("boss"))
+        {
+            isTakeDamage = false;
+        }
     }
 
     private void cowboyDeath()

@@ -11,6 +11,7 @@ TagManager:
   - Terrain
   - FireBreath
   - Devil
+  - boss
   layers:
   - Default
   - TransparentFX

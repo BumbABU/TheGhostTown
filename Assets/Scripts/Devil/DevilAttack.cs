@@ -14,10 +14,18 @@ public class DevilAttack : MonoBehaviour
     private float delayTakedamage = 0.005f;
     [SerializeField]
     private float devilDamage = 5f;
+    [SerializeField]
+    private Collider2D collider;
+    [SerializeField]
+    private Rigidbody2D rb;
+    private float originalRb;
 
     private void Awake()
     {
         devilTakeDamage = GetComponent<DevilTakeDamage>();
+        collider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        originalRb = rb.gravityScale;
     }
 
     private void Update()
@@ -38,6 +46,11 @@ public class DevilAttack : MonoBehaviour
                 isAttack = true;
             }
         }
+        if(collision.CompareTag("Enemy"))
+        {
+            collider.isTrigger = true;
+            rb.gravityScale = 0;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -45,6 +58,11 @@ public class DevilAttack : MonoBehaviour
         if (collision.CompareTag("Cowboy"))
         {
             isAttack = false;
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            collider.isTrigger = false;
+            rb.gravityScale = originalRb;
         }
     }
 

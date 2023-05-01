@@ -57,6 +57,15 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if (collision.CompareTag("boss")) 
+        {
+            BossTakeDamage boss = collision.GetComponent<BossTakeDamage>();
+            if(boss != null)
+            {
+                boss.TakeDamage(shooting.DamageBullet);
+                Destroy(gameObject);
+            }
+        }
         else if (collision.gameObject.CompareTag("Terrain"))
         {
             Destroy(gameObject);

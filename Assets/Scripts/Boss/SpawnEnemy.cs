@@ -32,7 +32,7 @@ public class SpawnEnemy : MonoBehaviour
         RemoveDeathEnemy();
 
 
-        if (currentEnemy == 5)
+        if (currentEnemy >= 5)
         {
             if (enemyprefabList.Count >= 5)
             {
