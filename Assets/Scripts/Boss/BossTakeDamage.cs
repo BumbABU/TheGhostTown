@@ -23,12 +23,10 @@ public class BossTakeDamage : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // health = GetComponent<HealthEnemy>();
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(health.Health);
         if (isTakeDamage)
         {
             StartCoroutine(changeIstakedamage());

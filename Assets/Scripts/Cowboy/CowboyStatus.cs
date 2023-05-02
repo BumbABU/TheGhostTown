@@ -1,7 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.AssetImporters;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CowboyStatus : MonoBehaviour
 {
@@ -13,12 +15,13 @@ public class CowboyStatus : MonoBehaviour
     private EnemyManager enemyManager;
     [SerializeField]
     private Transform reborn;
-    public Transform Reborn { get { return reborn; } }
+    public Transform Reborn { get { return reborn; } set { this.reborn = value; } }
     private CowboyAnimation cowboyAnimation;
     [SerializeField]
     private float timedelayTakedamage = 1f;
     [SerializeField]
     private float cowBoyHealth = 100;
+    public float CowboyHealth { get {  return cowBoyHealth; } set {  cowBoyHealth = value; } }
     [SerializeField]
     private float damageCut = 20;
     [SerializeField]
@@ -91,7 +94,7 @@ public class CowboyStatus : MonoBehaviour
 
     private void Update()
     {
-       //  Debug.Log(cowBoyHealth);
+        Debug.Log(cowBoyHealth);
        // Debug.Log("cowboyTakeDamge" + isTakeDamage);
         if (isTakeDamage)
         {
@@ -111,7 +114,15 @@ public class CowboyStatus : MonoBehaviour
         if (cowBoyHealth <= 0)
         {
             isDeath = true;
-            cowboyDeath();
+            if(this.reborn == null)
+            {
+                rigidBody.bodyType = RigidbodyType2D.Static;
+                Invoke("cowboyLose", 1f);
+            }
+            else if (this.reborn != null)
+            {
+                cowboyDeath();
+            }
         }
         if (Input.GetMouseButtonDown(0) && changeGun && (shoot.CurrentBullet>0))
         {
@@ -248,6 +259,13 @@ public class CowboyStatus : MonoBehaviour
         rigidBody.bodyType = RigidbodyType2D.Static;
         Invoke("Restart", 1f);
     }
+    private void cowboyLose()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
 
     private void Restart()
     {
@@ -258,5 +276,24 @@ public class CowboyStatus : MonoBehaviour
         cowBoyHealth = 100;
 
     }
+   /* public void Restart()
+    {
+        Debug.Log(111);
+        if (this.checkpoint == null)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            RebornofCheckpoint();
+        }
+    }
+
+    private void RebornofCheckpoint()
+    {
+        this._rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        this.transform.position = this.checkpoint.position;
+        this._animator.Rebind(); // reset lại animation
+    }*/
 }
 
