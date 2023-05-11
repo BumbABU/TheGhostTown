@@ -17,7 +17,11 @@ public class Spawnpoint : MonoBehaviour
     }
     private void Update()
     {
-        if (boss.IsDeath) return;
+        if (boss.IsDeath)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
       if(spawnEnemy.IsSpawn)
         {

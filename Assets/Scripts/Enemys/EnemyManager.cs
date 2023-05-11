@@ -72,7 +72,6 @@ public class EnemyManager: MonoBehaviour
     {
         if (cowboyst.IsDeath)
         {
-            Debug.Log("Death");
             isattacking = false;
             isUntilSkill = false;
             isfollowCowboy = false;

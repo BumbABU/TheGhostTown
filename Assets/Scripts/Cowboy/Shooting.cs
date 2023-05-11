@@ -9,7 +9,7 @@ public class Shooting : MonoBehaviour
     public float BulletRate { get{return bulletRate;}}
     [SerializeField]
     private int damageBullet;
-    public int DamageBullet { get { return damageBullet;}}
+    public int DamageBullet { get { return damageBullet;} set { damageBullet = value; } }
     [SerializeField]
     private float distanceBullet;
     public float DistanceBullet { get { return distanceBullet;}}
@@ -22,7 +22,7 @@ public class Shooting : MonoBehaviour
     private GameObject bulletPrefab;
     [SerializeField]
     private int currentBullet = 0;
-    public int CurrentBullet { get { return currentBullet; } }
+    public int CurrentBullet { get { return currentBullet; } set { currentBullet = value; } }
     [SerializeField]
     private int maxBullet =5;
     [SerializeField]
@@ -59,6 +59,10 @@ public class Shooting : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canFire && cowboyStatus.changeGun && !isReloading)
         {
             Shoot(); 
+            if(AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE("shoot");
+            }
         }
 
         DelayShoot();
@@ -75,11 +79,7 @@ public class Shooting : MonoBehaviour
     private void DelayShoot()
     {
         this.timeDelta += Time.deltaTime;
-        if (timeDelta < timePerOneshot)
-        {
-            return; 
-        }
-       
+        if (timeDelta < timePerOneshot) return;
         timeDelta = 0;
         canFire = true;
         

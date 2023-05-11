@@ -16,6 +16,10 @@ public class Health : MonoBehaviour
     {
         if(collision.CompareTag("Cowboy") && !isCheck)
         {
+            if(AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE("collect");
+            }
             isCheck = true;
             CowboyStatus cowboy = collision.GetComponent<CowboyStatus>();
             cowboy.CowboyHealth += 50;

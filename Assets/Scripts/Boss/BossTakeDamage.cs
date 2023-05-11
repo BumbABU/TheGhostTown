@@ -41,6 +41,7 @@ public class BossTakeDamage : MonoBehaviour
         {
             isDeath = true;
             Invoke("Destroy", 2f);
+            Invoke("finish", 2f);
         }
     }
 
@@ -53,5 +54,17 @@ public class BossTakeDamage : MonoBehaviour
     private void Destroy()
     {
         Destroy(gameObject);
+    }
+    private void finish()
+    {
+       if(UIManager.HasInstance)
+        {
+            UIManager.Instance.ActiveVictoryPanel(true);
+            
+        }
+       if(AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE("win");
+        }
     }
 }

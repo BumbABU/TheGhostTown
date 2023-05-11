@@ -91,7 +91,7 @@ public class CowboyAnimation : MonoBehaviour
         {
             movementState = MovementState.Idle;
         }
-        if (rb.velocity.y > 1.5f)
+        if (rb.velocity.y > 10f)
         {
             movementState = MovementState.Jumping;
         }

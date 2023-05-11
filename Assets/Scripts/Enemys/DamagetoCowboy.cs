@@ -73,6 +73,11 @@ public class DamagetoCowboy : MonoBehaviour
             }
 
         }
+        if (collision.CompareTag("Enemy"))
+        {
+            collider2d.isTrigger = true;
+            rb.gravityScale = 0;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -89,11 +94,11 @@ public class DamagetoCowboy : MonoBehaviour
                 rb.gravityScale = untillSkill.UntillSkillScale;
             }*/
         }
-/*        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             collider2d.isTrigger = false;
             rb.gravityScale = defaultGravityScale;
-        }*/
+        }
     }
 
     private void DamageToCowboy()

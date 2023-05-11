@@ -26,7 +26,7 @@ public class BossmoveWaypoint : MonoBehaviour
     }
     public void EnemysMovetowaypoint()
     {
-        if (Vector2.Distance(wayPoints[currentWaypoint].transform.position, transform.position) < 1.5f)
+        if (Vector2.Distance(wayPoints[currentWaypoint].transform.position, transform.position) <3f)
         {
 
             currentWaypoint++;

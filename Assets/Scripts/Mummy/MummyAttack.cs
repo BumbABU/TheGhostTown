@@ -46,18 +46,18 @@ public class MummyAttack : MonoBehaviour
                 isAttack = true;
             }
         }
-        if (collision.CompareTag("Devil"))
+/*        if (collision.CompareTag("mummy"))
         {
             collider.isTrigger = true;
             rb.gravityScale = 0;
 
-        }
-        if (collision.CompareTag("Enemy"))
+        }*/
+/*        if (collision.CompareTag("Enemy"))
         {
             collider.isTrigger = true;
             rb.gravityScale = 0;
 
-        }
+        }*/
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -66,20 +66,30 @@ public class MummyAttack : MonoBehaviour
         {
             isAttack = false;
         }
-        if (collision.CompareTag("Devil"))
+        if (collision.CompareTag("mummy"))
         {
             collider.isTrigger = false;
             rb.gravityScale = originalRb;
 
         }
-        if (collision.CompareTag("Enemy"))
+        /*        if (collision.CompareTag("Enemy"))
+                {
+                    collider.isTrigger = false;
+                    rb.gravityScale = originalRb;
+
+                }*/
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("mummy"))
         {
-            collider.isTrigger = false;
-            rb.gravityScale = originalRb;
+            collider.isTrigger = true;
+            rb.gravityScale = 0;
 
         }
     }
 
+   
     private void AttackCowboy()
     {
         timertakeDamage += Time.deltaTime;

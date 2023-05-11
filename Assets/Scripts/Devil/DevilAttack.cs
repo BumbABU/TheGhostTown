@@ -51,6 +51,11 @@ public class DevilAttack : MonoBehaviour
             collider.isTrigger = true;
             rb.gravityScale = 0;
         }
+        if (collision.CompareTag("Devil"))
+        {
+            collider.isTrigger = true;
+            rb.gravityScale = 0;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -60,6 +65,11 @@ public class DevilAttack : MonoBehaviour
             isAttack = false;
         }
         if (collision.CompareTag("Enemy"))
+        {
+            collider.isTrigger = false;
+            rb.gravityScale = originalRb;
+        }
+        if (collision.CompareTag("Devil"))
         {
             collider.isTrigger = false;
             rb.gravityScale = originalRb;
@@ -74,4 +84,6 @@ public class DevilAttack : MonoBehaviour
         cowboyStatus.cowboyTakedamage(devilDamage);
 
     }
+
+
 }

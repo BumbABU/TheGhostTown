@@ -30,7 +30,7 @@ public class BossFlip : MonoBehaviour
     }
     private void Flip()
     {
-        if (spawnEnemy.IsSpawn && bossFollow.IsFollowing && bossAttack.IsAttack)
+        if (spawnEnemy.IsSpawn || bossFollow.IsFollowing || bossAttack.IsAttack)
         {
             if (cowBoy.position.x < transform.position.x)
             {

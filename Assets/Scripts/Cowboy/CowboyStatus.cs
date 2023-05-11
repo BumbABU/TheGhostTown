@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.AssetImporters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CowboyStatus : MonoBehaviour
 {
+    [SerializeField]
+    private ResurrectedFruit resurrectedFruit;
     [SerializeField]
     private TrailRenderer trailRenderer;
     [SerializeField]
@@ -94,7 +95,7 @@ public class CowboyStatus : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(cowBoyHealth);
+       // Debug.Log(cowBoyHealth);
        // Debug.Log("cowboyTakeDamge" + isTakeDamage);
         if (isTakeDamage)
         {
@@ -114,14 +115,22 @@ public class CowboyStatus : MonoBehaviour
         if (cowBoyHealth <= 0)
         {
             isDeath = true;
-            if(this.reborn == null)
+            if (!resurrectedFruit.IsCanResuccrect )
             {
                 rigidBody.bodyType = RigidbodyType2D.Static;
+                if(AudioManager.HasInstance)
+                {
+                    AudioManager.Instance.PlaySE("lose");
+                }
                 Invoke("cowboyLose", 1f);
             }
-            else if (this.reborn != null)
+            else if (this.reborn != null && resurrectedFruit.IsCanResuccrect)
             {
                 cowboyDeath();
+            }
+            else if (reborn == null) 
+            {
+                Debug.Log("Lose");
             }
         }
         if (Input.GetMouseButtonDown(0) && changeGun && (shoot.CurrentBullet>0))
@@ -192,6 +201,10 @@ public class CowboyStatus : MonoBehaviour
         if (this.IsGround() && Input.GetButtonDown("Jump"))
         {
             rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, this.jumpHeight);
+            if(AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE("jump");
+            }
         }
     }
     private bool IsGround()
@@ -256,15 +269,24 @@ public class CowboyStatus : MonoBehaviour
 
     private void cowboyDeath()
     {
+        if(AudioManager.HasInstance)
+        {
+            AudioManager.Instance.PlaySE("death");
+        }
         rigidBody.bodyType = RigidbodyType2D.Static;
         Invoke("Restart", 1f);
     }
     private void cowboyLose()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#endif
-        Application.Quit();
+        /*#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+        #endif
+                Application.Quit();*/
+        Time.timeScale = 0f;
+        if(UIManager.HasInstance )
+        {
+            UIManager.Instance.ActiveLosePanel(true);
+        }
     }
 
     private void Restart()
@@ -274,6 +296,7 @@ public class CowboyStatus : MonoBehaviour
         isDeath = false;
         cowboyAnimation.Animator.Rebind();
         cowBoyHealth = 100;
+        resurrectedFruit.IsCanResuccrect = false;
 
     }
    /* public void Restart()

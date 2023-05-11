@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class PowerFruit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private Shooting cowboy;
+    [SerializeField]
+    private int increasedDamage;
+    private int defaultDamage;
+    [SerializeField]
+    private float timetoIncreasedDamage;
+    private bool isCheck = false;
+    private void Awake()
     {
-        
+        defaultDamage = cowboy.DamageBullet;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Cowboy") && !isCheck)
+        {
+            if (AudioManager.HasInstance)
+            {
+                AudioManager.Instance.PlaySE("collect");
+            }
+            isCheck = true;
+            StartCoroutine(IncreaseDamageBullet());
+            gameObject.SetActive(false);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator IncreaseDamageBullet ()
     {
-        
+        cowboy.DamageBullet += increasedDamage;
+        yield return new WaitForSeconds(timetoIncreasedDamage);
+        cowboy.DamageBullet = defaultDamage;
     }
 }

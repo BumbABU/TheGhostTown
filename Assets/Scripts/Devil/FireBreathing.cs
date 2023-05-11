@@ -58,9 +58,9 @@ public class FireBreathing : MonoBehaviour
            stick = true;
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Cowboy"))
+        else if (collision.CompareTag("Cowboy") &&!cowboyst.IsDashingCut )
         {
-            if (cowboyst.IsDashingCut) return;
+            //if (cowboyst.IsDashingCut) return;
             if(cowboyst.IsDeath)
             {
                 Destroy();
@@ -69,7 +69,7 @@ public class FireBreathing : MonoBehaviour
             transform.SetParent(collision.transform);
             rb.bodyType = RigidbodyType2D.Kinematic;
             cowboyst.cowboyTakedamage(fireDamage);
-            StartCoroutine(hello());
+            StartCoroutine(ChangeTakeDamge());
 
         }
     }
@@ -79,12 +79,12 @@ public class FireBreathing : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator hello ()
+    private IEnumerator ChangeTakeDamge ()
     {
         yield return new WaitForSeconds(1);
         cowboyst.IsTakeDamage = false;
         cowboyAnimation.Animator.Rebind();
-        yield return new WaitForSeconds(0.0000001f);
+        yield return new WaitForSeconds(0.001f);
         Destroy();
     }
 }
